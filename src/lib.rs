@@ -1,14 +1,14 @@
-mod ccg;
-mod udtt;
+pub mod dts;
+pub mod parser;
 
 // A node in CCG derivation tree.
 #[derive(Debug, PartialEq)]
 struct Node {
-    rule_symbol: ccg::RuleSymbol,
+    rule_symbol: parser::ccg::RuleSymbol,
     phonetic_form: String,
-    cat: ccg::Cat,
-    semantic: udtt::Preterm,
-    signature: Vec<udtt::Signature>,
+    cat: parser::ccg::Cat,
+    semantic: dts::udtt::Preterm,
+    signature: Vec<dts::udtt::Signature>,
     daughters: Vec<Node>,
     score: f64,
     source: String,
