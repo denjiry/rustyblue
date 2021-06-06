@@ -1,5 +1,8 @@
-use rustyblue;
+use rustyblue::parser::chartparser;
 
 fn main() {
-    println!("Hello, world!");
+    let mut input = String::new("ソクラテスは死ぬ。");
+    let mut input = chartparser::Input { sentence: input };
+    let node = chartparser::simple_parse(10);
+    dbg!(node);
 }
