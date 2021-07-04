@@ -8,9 +8,13 @@ struct Input {
 
 impl Input {
     // Simple parsing function to return just the best node for a given sentence
-    fn simple_parse(&self, beam: usize) -> Result<Node, std::io::Error> {
+    fn simple_parse(&self, beam_width: usize) -> Result<Node, std::io::Error> {
         let lexicon = setup_lexicon(&self.sentence);
-        let chart = chart_parser(beam, &lexicon, &self.sentence);
+        let chart_parser = ChartParser {
+            beam_width,
+            lexicon,
+        };
+        let chart = chart_parser.parse(&self.sentence);
         unimplemented!();
     }
 
@@ -21,36 +25,22 @@ impl Input {
 }
 
 type Chart = std::collections::HashMap<(usize, usize), Vec<Node>>;
-fn chart_parser(beam: usize, lexicon: &LexicalItem, sentence: &str) -> Chart {
-    let chars = sentence.chars().fuse();
-    let initial_pc = PartialChart::new();
-    let end = chars.fold(initial_pc, |acc, c| {
-        chart_accumulator(beam, lexicon, acc, c)
-    });
-    end.chart
+
+struct ChartParser {
+    beam_width: usize,
+    lexicon: LexicalItem,
 }
 
-struct PartialChart {
-    chart: Chart,
-    seplist: Vec<usize>,
-    i: usize,
-    stack: String,
-}
-impl PartialChart {
-    fn new() -> Self {
-        PartialChart {
-            chart: Chart::new(),
-            seplist: vec![],
-            i: 0,
-            stack: String::new(),
+impl ChartParser {
+    fn parse(&self, sentence: &str) -> Chart {
+        let sentence = sentence.chars().collect::<Vec<_>>();
+        let mut chart = Chart::new();
+        let mut sep_stack = vec![0usize];
+
+        for (i, c) in sentence.iter().enumerate() {
+            let stack = &sentence[..i];
         }
+
+        chart
     }
-}
-fn chart_accumulator(
-    beam: usize,
-    lexicon: &LexicalItem,
-    pc: PartialChart,
-    c: char,
-) -> PartialChart {
-    unimplemented!();
 }
