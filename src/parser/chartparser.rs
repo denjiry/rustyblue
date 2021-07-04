@@ -38,7 +38,14 @@ impl ChartParser {
         let mut sep_stack = vec![0usize];
 
         for (i, c) in sentence.iter().enumerate() {
-            let stack = &sentence[..i];
+            let sub_sentence = &sentence[..i];
+            let j = i + 1;
+            let lex_seeker = (0..i).rev();
+            for i in lex_seeker {
+                let word_candidate = &sub_sentence[i..];
+                let lexes = self.lexicon.lookup(word_candidate);
+                todo!();
+            }
         }
 
         chart
