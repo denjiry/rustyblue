@@ -2,6 +2,8 @@ use super::japanese::lexicon::setup_lexicon;
 use crate::{parser::japanese::lexicon, Node};
 use lexicon::LexicalItem;
 
+const MAX_WORD_LENGTH: usize = 23;
+
 struct Input {
     sentence: String,
 }
@@ -40,14 +42,31 @@ impl ChartParser {
         for (i, c) in sentence.iter().enumerate() {
             let sub_sentence = &sentence[..i];
             let j = i + 1;
-            let lex_seeker = (0..i).rev();
-            for i in lex_seeker {
+            let backward_lex_seeker = (0..i).rev();
+            for i in backward_lex_seeker {
                 let word_candidate = &sub_sentence[i..];
+                if word_candidate.len() > MAX_WORD_LENGTH {
+                    continue;
+                }
                 let lexes = self.lexicon.lookup(word_candidate);
-                todo!();
+                let new_parent_nodes = check_binary_rules(i, j, &chart);
+                let new_nodes: Vec<Node> = vec![lexes, new_parent_nodes]
+                    .into_iter()
+                    .flatten()
+                    .collect();
+                let old = chart.insert((i, j), new_nodes);
+                assert!(old.is_none(), "chart should be inserted only once.");
             }
         }
 
         chart
     }
+}
+
+fn check_binary_rules(i: usize, j: usize, chart: &Chart) -> Vec<Node> {
+    for k in ((i + 1)..j) {
+        let kj_nodes = chart.get(&(k, j));
+        let ik_nodes = chart.get(&(i, k));
+    }
+    todo!();
 }
