@@ -1,6 +1,10 @@
-use super::japanese::lexicon::setup_lexicon;
-use crate::{parser::japanese::lexicon, Node};
-use lexicon::LexicalItem;
+use crate::{
+    parser::{
+        ccg,
+        japanese::lexicon::{setup_lexicon, LexicalItem},
+    },
+    Node,
+};
 
 const MAX_WORD_LENGTH: usize = 23;
 
@@ -49,7 +53,7 @@ impl ChartParser {
                     continue;
                 }
                 let lexes = self.lexicon.lookup(word_candidate);
-                let new_parent_nodes = check_binary_rules(i, j, &chart);
+                let new_parent_nodes = apply_all_rules(i, j, &chart);
                 let new_nodes: Vec<Node> = vec![lexes, new_parent_nodes]
                     .into_iter()
                     .flatten()
@@ -63,10 +67,25 @@ impl ChartParser {
     }
 }
 
-fn check_binary_rules(i: usize, j: usize, chart: &Chart) -> Vec<Node> {
-    for k in ((i + 1)..j) {
-        let kj_nodes = chart.get(&(k, j));
-        let ik_nodes = chart.get(&(i, k));
+fn apply_all_rules(i: usize, j: usize, chart: &Chart) -> Vec<Node> {
+    let mut nodes = Vec::new();
+    for k in (i + 1)..j {
+        let ik_nodes = match chart.get(&(i, k)) {
+            Some(ik_nodes) => ik_nodes,
+            None => continue,
+        };
+        let kj_nodes = match chart.get(&(k, j)) {
+            Some(kj_nodes) => kj_nodes,
+            None => continue,
+        };
+
+        for lnode in ik_nodes {
+            for rnode in kj_nodes {
+                let mut new_binary_nodes = ccg::all_binary_rules(lnode, rnode);
+                nodes.append(&mut new_binary_nodes);
+            }
+        }
     }
-    todo!();
+
+    nodes
 }

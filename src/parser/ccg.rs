@@ -1,3 +1,9 @@
+use crate::Node;
+
+pub(crate) fn all_binary_rules(lnode: &Node, rnode: &Node) -> Vec<Node> {
+    todo!();
+}
+
 // Syntactic categories of
 #[derive(Debug, PartialEq)]
 pub(crate) enum Cat {
