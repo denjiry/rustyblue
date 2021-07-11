@@ -8,13 +8,13 @@ use crate::{
 
 const MAX_WORD_LENGTH: usize = 23;
 
-struct Input {
-    sentence: String,
+pub struct Input {
+    pub sentence: String,
 }
 
 impl Input {
     // Simple parsing function to return just the best node for a given sentence
-    fn simple_parse(&self, beam_width: usize) -> Result<Node, std::io::Error> {
+    pub fn simple_parse(&self, beam_width: usize) -> Result<Node, std::io::Error> {
         let lexicon = setup_lexicon(&self.sentence);
         let chart_parser = ChartParser {
             beam_width,

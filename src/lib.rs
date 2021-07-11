@@ -3,7 +3,7 @@ pub mod parser;
 
 // A node in CCG derivation tree.
 #[derive(Debug, PartialEq)]
-struct Node {
+pub struct Node {
     rule_symbol: parser::ccg::RuleSymbol,
     phonetic_form: String,
     cat: parser::ccg::Cat,

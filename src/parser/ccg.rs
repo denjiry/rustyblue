@@ -1,8 +1,6 @@
-use crate::Node;
+pub(crate) mod binary_rules;
 
-pub(crate) fn all_binary_rules(lnode: &Node, rnode: &Node) -> Vec<Node> {
-    todo!();
-}
+use crate::Node;
 
 // Syntactic categories of
 #[derive(Debug, PartialEq)]
