@@ -1,6 +1,6 @@
 use crate::{
     parser::{
-        ccg,
+        ccg::binary_rules,
         japanese::lexicon::{setup_lexicon, LexicalItem},
     },
     Node,
@@ -53,8 +53,8 @@ impl ChartParser {
                     continue;
                 }
                 let lexes = self.lexicon.lookup(word_candidate);
-                let new_parent_nodes = apply_all_rules(i, j, &chart);
-                let new_nodes: Vec<Node> = vec![lexes, new_parent_nodes]
+                let new_binary_nodes = apply_binary_rules(i, j, &chart);
+                let new_nodes: Vec<Node> = vec![lexes, new_binary_nodes]
                     .into_iter()
                     .flatten()
                     .collect();
@@ -67,7 +67,8 @@ impl ChartParser {
     }
 }
 
-fn apply_all_rules(i: usize, j: usize, chart: &Chart) -> Vec<Node> {
+fn apply_binary_rules(i: usize, j: usize, chart: &Chart) -> Vec<Node> {
+    use binary_rules::*;
     let mut nodes = Vec::new();
     for k in (i + 1)..j {
         let ik_nodes = match chart.get(&(i, k)) {
@@ -81,8 +82,7 @@ fn apply_all_rules(i: usize, j: usize, chart: &Chart) -> Vec<Node> {
 
         for lnode in ik_nodes {
             for rnode in kj_nodes {
-                let mut new_binary_nodes = ccg::all_binary_rules(lnode, rnode);
-                nodes.append(&mut new_binary_nodes);
+                nodes.push(forward_function_crossed_substitution_rule(lnode, rnode));
             }
         }
     }
