@@ -1,13 +1,7 @@
 use crate::Node;
 
-pub(crate) struct LexicalItem {}
+pub(crate) type Lexicon<'a> = std::collections::HashMap<&'a str, Vec<&'a Node>>;
 
-impl LexicalItem {
-    pub(crate) fn lookup(&self, word: &[char]) -> Vec<Node> {
-        todo!();
-    }
-}
-
-pub(crate) fn setup_lexicon(sentence: &str) -> LexicalItem {
+pub(crate) fn setup_lexicon(sentence: &str) -> Lexicon {
     unimplemented!()
 }

@@ -1,7 +1,7 @@
 use crate::{
     parser::{
         ccg::binary_rules,
-        japanese::lexicon::{setup_lexicon, LexicalItem},
+        japanese::lexicon::{setup_lexicon, Lexicon},
     },
     Node,
 };
@@ -30,14 +30,14 @@ impl Input {
     }
 }
 
-type Chart = std::collections::HashMap<(usize, usize), Vec<Node>>;
+type Chart<'a> = std::collections::HashMap<(usize, usize), Vec<&'a Node>>;
 
-struct ChartParser {
+struct ChartParser<'a> {
     beam_width: usize,
-    lexicon: LexicalItem,
+    lexicon: Lexicon<'a>,
 }
 
-impl ChartParser {
+impl<'a> ChartParser<'a> {
     fn parse(&self, sentence: &str) -> Chart {
         let sentence = sentence.chars().collect::<Vec<_>>();
         let mut chart = Chart::new();
@@ -48,18 +48,22 @@ impl ChartParser {
             let j = i + 1;
             let backward_lex_seeker = (0..i).rev();
             for i in backward_lex_seeker {
+                let mut new_nodes: Vec<&Node> = Vec::new();
                 let word_candidate = &sub_sentence[i..];
                 if word_candidate.len() > MAX_WORD_LENGTH {
                     continue;
                 }
-                let lexes = self.lexicon.lookup(word_candidate);
+                let word_candidate: String = word_candidate.iter().collect();
+                let lexes = self.lexicon.get(&word_candidate.as_str());
+                if let Some(lexes) = lexes {
+                    new_nodes.extend(lexes);
+                }
+
                 let new_binary_nodes = apply_binary_rules(i, j, &chart);
-                let new_nodes: Vec<Node> = vec![lexes, new_binary_nodes]
-                    .into_iter()
-                    .flatten()
-                    .collect();
+                new_nodes.extend(new_binary_nodes);
+
                 let old = chart.insert((i, j), new_nodes);
-                assert!(old.is_none(), "chart should be inserted only once.");
+                assert!(old.is_none(), "chart should be inserted up to once.");
             }
         }
 
@@ -67,7 +71,7 @@ impl ChartParser {
     }
 }
 
-fn apply_binary_rules(i: usize, j: usize, chart: &Chart) -> Vec<Node> {
+fn apply_binary_rules<'a>(i: usize, j: usize, chart: &Chart) -> Vec<&'a Node> {
     use binary_rules::*;
     let mut nodes = Vec::new();
     for k in (i + 1)..j {
