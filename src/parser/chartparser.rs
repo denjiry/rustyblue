@@ -6,8 +6,6 @@ use crate::{
     Node,
 };
 
-const MAX_WORD_LENGTH: usize = 23;
-
 pub struct Input {
     pub sentence: String,
 }
@@ -46,13 +44,9 @@ impl<'a> ChartParser<'a> {
         for (i, c) in sentence.iter().enumerate() {
             let sub_sentence = &sentence[..i];
             let j = i + 1;
-            let backward_lex_seeker = (0..i).rev();
-            for i in backward_lex_seeker {
+            for i in (0..i).rev() {
                 let mut new_nodes: Vec<&Node> = Vec::new();
                 let word_candidate = &sub_sentence[i..];
-                if word_candidate.len() > MAX_WORD_LENGTH {
-                    continue;
-                }
                 let word_candidate: String = word_candidate.iter().collect();
                 let lexes = self.lexicon.get(&word_candidate.as_str());
                 if let Some(lexes) = lexes {
