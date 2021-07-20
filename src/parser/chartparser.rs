@@ -46,8 +46,7 @@ impl<'a> ChartParser<'a> {
             let j = i + 1;
             for i in (0..i).rev() {
                 let mut new_nodes: Vec<&Node> = Vec::new();
-                let word_candidate = &sub_sentence[i..];
-                let word_candidate: String = word_candidate.iter().collect();
+                let word_candidate: String = sub_sentence[i..].iter().collect();
                 let lexes = self.lexicon.get(&word_candidate.as_str());
                 if let Some(lexes) = lexes {
                     new_nodes.extend(lexes);
