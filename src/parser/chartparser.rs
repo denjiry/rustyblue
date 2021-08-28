@@ -6,26 +6,20 @@ use crate::{
     Node,
 };
 
-pub struct Input {
-    pub sentence: String,
+// Simple parsing function to return just the best node for a given sentence
+pub fn simple_parse(input: &str, beam_width: usize) -> Result<Node, std::io::Error> {
+    let lexicon = setup_lexicon(input);
+    let chart_parser = ChartParser {
+        beam_width,
+        lexicon,
+    };
+    let chart = chart_parser.parse(input);
+    unimplemented!();
 }
 
-impl Input {
-    // Simple parsing function to return just the best node for a given sentence
-    pub fn simple_parse(&self, beam_width: usize) -> Result<Node, std::io::Error> {
-        let lexicon = setup_lexicon(&self.sentence);
-        let chart_parser = ChartParser {
-            beam_width,
-            lexicon,
-        };
-        let chart = chart_parser.parse(&self.sentence);
-        unimplemented!();
-    }
-
-    // removes occurrences of non-letters from an input text.
-    fn purify_text(&mut self) {
-        unimplemented!();
-    }
+// removes occurrences of non-letters from an input text.
+fn purify_text() {
+    unimplemented!();
 }
 
 type Chart<'a> = std::collections::HashMap<(usize, usize), Vec<&'a Node>>;
