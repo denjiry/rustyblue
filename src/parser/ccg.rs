@@ -1,10 +1,10 @@
-pub(crate) mod binary_rules;
+pub mod binary_rules;
 
 use crate::Node;
 
 // Syntactic categories of
 #[derive(Debug, PartialEq)]
-pub(crate) enum Cat {
+pub enum Cat {
     S(Vec<Feature>),        // S
     NP(Vec<Feature>),       // NP
     N,                      // N
@@ -18,13 +18,13 @@ pub(crate) enum Cat {
 }
 
 #[derive(Debug, PartialEq)]
-pub(crate) enum Feature {
+pub enum Feature {
     F(Vec<FeatureValue>),       //  Syntactic feature
     SF(i64, Vec<FeatureValue>), //  Shared syntactic feature (with an index)
 }
 
 #[derive(Debug, PartialEq)]
-pub(crate) enum FeatureValue {
+pub enum FeatureValue {
     V5k,
     V5s,
     V5t,
@@ -99,7 +99,7 @@ pub(crate) enum FeatureValue {
 
 // The name of the CCG rule to derive the node.
 #[derive(Debug, PartialEq)]
-pub(crate) enum RuleSymbol {
+pub enum RuleSymbol {
     Lex,   // A lexical item
     EC,    // An empty category
     Ffa,   // Forward function application rule.

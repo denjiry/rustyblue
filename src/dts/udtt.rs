@@ -1,13 +1,13 @@
 // A type of an element of a type signature, that is, a list of pairs of a preterm and a type.
 // ex. [entity:type, state:type, event:type, student:entity->type]
 #[derive(Debug, PartialEq)]
-pub(crate) struct Signature {
+pub struct Signature {
     text: String,
     type_: Preterm,
 }
 
 #[derive(Debug, PartialEq)]
-pub(crate) enum Preterm {
+pub enum Preterm {
     Var(i64),                                         // Variables
     Con(String),                                      // Constant symbols
     Type,                                             // The sort \"type\"
@@ -36,7 +36,7 @@ pub(crate) enum Preterm {
 }
 
 #[derive(Debug, PartialEq)]
-pub(crate) enum Selector {
+pub enum Selector {
     Fst,
     Snd,
 }
