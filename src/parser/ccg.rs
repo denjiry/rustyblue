@@ -2,25 +2,37 @@ pub mod binary_rules;
 
 use crate::Node;
 
-// Syntactic categories of
+/// Syntactic categories of
 #[derive(Debug, PartialEq)]
 pub enum Cat {
-    S(Vec<Feature>),        // S
-    NP(Vec<Feature>),       // NP
-    N,                      // N
-    Sbar(Vec<Feature>),     // S bar
-    Conj,                   // CON
-    Lparen,                 // A category for left parentheses
-    Rparen,                 // A category for right parentheses
-    SL(Box<Cat>, Box<Cat>), // X/Y
-    BS(Box<Cat>, Box<Cat>), // X\\Y
-    T(bool, i64, Box<Cat>), // Category variables, where Int is an index, Cat is a restriction for its head.
+    /// S
+    S(Vec<Feature>),
+    /// NP
+    NP(Vec<Feature>),
+    /// N
+    N,
+    /// S bar
+    Sbar(Vec<Feature>),
+    /// CON
+    Conj,
+    /// A category for left parentheses
+    Lparen,
+    /// A category for right parentheses
+    Rparen,
+    /// X/Y
+    SL(Box<Cat>, Box<Cat>),
+    /// X\\Y
+    BS(Box<Cat>, Box<Cat>),
+    /// Category variables, where Int is an index, Cat is a restriction for its head.
+    T(bool, i64, Box<Cat>),
 }
 
 #[derive(Debug, PartialEq)]
 pub enum Feature {
-    F(Vec<FeatureValue>),       //  Syntactic feature
-    SF(i64, Vec<FeatureValue>), //  Shared syntactic feature (with an index)
+    ///  Syntactic feature
+    F(Vec<FeatureValue>),
+    ///  Shared syntactic feature (with an index)
+    SF(i64, Vec<FeatureValue>),
 }
 
 #[derive(Debug, PartialEq)]
@@ -97,25 +109,43 @@ pub enum FeatureValue {
     Decl,
 }
 
-// The name of the CCG rule to derive the node.
+/// The name of the CCG rule to derive the node.
 #[derive(Debug, PartialEq)]
 pub enum RuleSymbol {
-    Lex,   // A lexical item
-    EC,    // An empty category
-    Ffa,   // Forward function application rule.
-    Bfa,   // Backward function application rule
-    FFC1,  // Forward function composition rule 1
-    BFC1,  // Backward function composition rule 1
-    FFC2,  // Forward function composition rule 2
-    BFC2,  // Backward function composition rule 2
-    FFC3,  // Forward function composition rule 3
-    BFC3,  // Backward function composition rule 3
-    FFCx1, // Forward function crossed composition rule 1
-    FFCx2, // Forward function crossed composition rule 2
-    FFSx,  // Forward function crossed substitution rule
-    Coord, // Coordination rule
-    Paren, // Parenthesis rule
-    Wrap,  // Wrap rule
-    DC,    // Dynamic conjunction rule
-    Drel,  // Discourse Relation rule
+    /// A lexical item
+    Lex,
+    /// An empty category
+    EC,
+    /// Forward function application rule.
+    Ffa,
+    /// Backward function application rule
+    Bfa,
+    /// Forward function composition rule 1
+    FFC1,
+    /// Backward function composition rule 1
+    BFC1,
+    /// Forward function composition rule 2
+    FFC2,
+    /// Backward function composition rule 2
+    BFC2,
+    /// Forward function composition rule 3
+    FFC3,
+    /// Backward function composition rule 3
+    BFC3,
+    /// Forward function crossed composition rule 1
+    FFCx1,
+    /// Forward function crossed composition rule 2
+    FFCx2,
+    /// Forward function crossed substitution rule
+    FFSx,
+    /// Coordination rule
+    Coord,
+    /// Parenthesis rule
+    Paren,
+    /// Wrap rule
+    Wrap,
+    /// Dynamic conjunction rule
+    DC,
+    /// Discourse Relation rule
+    Drel,
 }

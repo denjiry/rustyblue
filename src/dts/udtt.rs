@@ -1,5 +1,5 @@
-// A type of an element of a type signature, that is, a list of pairs of a preterm and a type.
-// ex. [entity:type, state:type, event:type, student:entity->type]
+/// A type of an element of a type signature, that is, a list of pairs of a preterm and a type.
+/// ex. [entity:type, state:type, event:type, student:entity->type]
 #[derive(Debug, PartialEq)]
 pub struct Signature {
     text: String,
@@ -8,31 +8,55 @@ pub struct Signature {
 
 #[derive(Debug, PartialEq)]
 pub enum Preterm {
-    Var(i64),                                         // Variables
-    Con(String),                                      // Constant symbols
-    Type,                                             // The sort \"type\"
-    Kind,                                             // The sort \"kind\"
-    Pi(Box<Preterm>, Box<Preterm>),                   // Dependent function types (or Pi types)
-    Not(Box<Preterm>),                                // Negations
-    Lam(Box<Preterm>),                                // Lambda abstractions
-    App(Box<Preterm>, Box<Preterm>),                  // Function Applications
-    Sigma(Box<Preterm>, Box<Preterm>),                // Dependent product types (or Sigma types)
-    Pair(Box<Preterm>, Box<Preterm>),                 // Pairs
-    Proj(Selector, Box<Preterm>),                     // (First and second) Projections
-    Asp(i64, Box<Preterm>),                           // Underspesified terms
-    Lamvec(Box<Preterm>),                             // Lambda abstractions of a variable vector
-    Appvec(i64, Box<Preterm>),                        // Function applications of a variable vector
-    Unit,                                             // The unit term (of type Top)
-    Top,                                              // The top type
-    Bot,                                              // The bottom type
-    Nat,                                              // Natural number type (Nat)
-    Zero,                                             // 0 (of type Nat)
-    Succ(Box<Preterm>),                               // The successor function
-    Natrec(Box<Preterm>, Box<Preterm>, Box<Preterm>), // natrec
-    Eq(Box<Preterm>, Box<Preterm>, Box<Preterm>),     // Intensional equality types
-    Refl(Box<Preterm>, Box<Preterm>),                 // refl
-    Idpeel(Box<Preterm>, Box<Preterm>),               // idpeel
-                                                      // DRel Int T.Text Preterm Preterm, // Discourse relations
+    /// Variables
+    Var(i64),
+    /// Constant symbols
+    Con(String),
+    /// The sort \"type\"
+    Type,
+    /// The sort \"kind\"
+    Kind,
+    /// Dependent function types (or Pi types)
+    Pi(Box<Preterm>, Box<Preterm>),
+    /// Negations
+    Not(Box<Preterm>),
+    /// Lambda abstractions
+    Lam(Box<Preterm>),
+    /// Function Applications
+    App(Box<Preterm>, Box<Preterm>),
+    /// Dependent product types (or Sigma types)
+    Sigma(Box<Preterm>, Box<Preterm>),
+    /// Pairs
+    Pair(Box<Preterm>, Box<Preterm>),
+    /// (First and second) Projections
+    Proj(Selector, Box<Preterm>),
+    /// Underspesified terms
+    Asp(i64, Box<Preterm>),
+    /// Lambda abstractions of a variable vector
+    Lamvec(Box<Preterm>),
+    /// Function applications of a variable vector
+    Appvec(i64, Box<Preterm>),
+    /// The unit term (of type Top)
+    Unit,
+    /// The top type
+    Top,
+    /// The bottom type
+    Bot,
+    /// Natural number type (Nat)
+    Nat,
+    /// 0 (of type Nat)
+    Zero,
+    /// The successor function
+    Succ(Box<Preterm>),
+    /// natrec
+    Natrec(Box<Preterm>, Box<Preterm>, Box<Preterm>),
+    /// Intensional equality types
+    Eq(Box<Preterm>, Box<Preterm>, Box<Preterm>),
+    /// refl
+    Refl(Box<Preterm>, Box<Preterm>),
+    /// idpeel
+    Idpeel(Box<Preterm>, Box<Preterm>),
+    // DRel Int T.Text Preterm Preterm, // Discourse relations
 }
 
 #[derive(Debug, PartialEq)]

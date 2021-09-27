@@ -1,7 +1,7 @@
 pub mod dts;
 pub mod parser;
 
-// A node in CCG derivation tree.
+/// A node in CCG derivation tree.
 #[derive(Debug, PartialEq)]
 pub struct Node {
     rule_symbol: parser::ccg::RuleSymbol,
