@@ -1,11 +1,11 @@
 use crate::Node;
 
-pub struct Lexicon<'a> {
-    todo: &'a [u8],
+pub struct Lexicon {
+    todo: String,
 }
 
-impl<'a> Lexicon<'a> {
-    pub fn new(lexicon: &'a [u8]) -> Self {
+impl Lexicon {
+    pub fn new(lexicon: &str) -> Self {
         todo!();
     }
 

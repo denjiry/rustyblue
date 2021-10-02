@@ -6,7 +6,7 @@ use crate::{
 // Simple parsing function to return just the best node for a given sentence
 pub fn simple_parse(
     input: &str,
-    lexicon: &[u8],
+    lexicon: &str,
     beam_width: usize,
 ) -> Result<Node, std::io::Error> {
     let lexicon = Lexicon::new(lexicon);
@@ -23,14 +23,14 @@ fn purify_text() {
     unimplemented!();
 }
 
-type Chart<'a> = std::collections::HashMap<(usize, usize), Vec<&'a Node>>;
+type Chart = std::collections::HashMap<(usize, usize), Vec<Node>>;
 
-struct ChartParser<'a> {
+struct ChartParser {
     beam_width: usize,
-    lexicon: Lexicon<'a>,
+    lexicon: Lexicon,
 }
 
-impl<'a> ChartParser<'a> {
+impl ChartParser {
     fn parse(&self, sentence: &str) -> Chart {
         let sentence = sentence.chars().collect::<Vec<_>>();
         let mut chart = Chart::new();
@@ -59,7 +59,7 @@ impl<'a> ChartParser<'a> {
     }
 }
 
-fn apply_binary_rules<'a>(i: usize, j: usize, chart: &Chart) -> Vec<Node> {
+fn apply_binary_rules(i: usize, j: usize, chart: &Chart) -> Vec<Node> {
     use binary_rules::*;
     let mut nodes = Vec::new();
     for k in (i + 1)..j {
