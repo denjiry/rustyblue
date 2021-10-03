@@ -1,6 +1,7 @@
 use std::io::{Read, Result};
 
 use rustyblue::parser::chartparser;
+use rustyblue::Node;
 use serde_json::Value;
 
 fn main() -> Result<()>{
@@ -16,7 +17,7 @@ fn main() -> Result<()>{
 }
 
 fn parse_lexicon(lex: &str) -> Result<()>{
-    let v: Value = serde_json::from_str(lex)?;
+    let v: Vec<Node> = serde_json::from_str(lex)?;
     dbg!(&v[0]);
     Ok(())
 }
