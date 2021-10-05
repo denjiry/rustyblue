@@ -1,14 +1,15 @@
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 /// A type of an element of a type signature, that is, a list of pairs of a preterm and a type.
 /// ex. [entity:type, state:type, event:type, student:entity->type]
-#[derive(Debug, PartialEq, Deserialize)]
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub struct Signature {
     text: String,
     type_: Preterm,
 }
 
-#[derive(Debug, PartialEq, Deserialize)]
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
+#[serde(tag = "tag", content = "contents")]
 pub enum Preterm {
     /// Variables
     Var(i64),
@@ -61,7 +62,8 @@ pub enum Preterm {
     // DRel Int T.Text Preterm Preterm, // Discourse relations
 }
 
-#[derive(Debug, PartialEq, Deserialize)]
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
+#[serde(tag = "tag", content = "contents")]
 pub enum Selector {
     Fst,
     Snd,

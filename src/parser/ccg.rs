@@ -1,9 +1,10 @@
 pub mod binary_rules;
-use serde::Deserialize;
 use crate::Node;
+use serde::{Deserialize, Serialize};
 
 /// Syntactic categories of
-#[derive(Debug, PartialEq, Deserialize)]
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
+#[serde(tag = "tag", content = "contents")]
 pub enum Cat {
     /// S
     S(Vec<Feature>),
@@ -27,7 +28,8 @@ pub enum Cat {
     T(bool, i64, Box<Cat>),
 }
 
-#[derive(Debug, PartialEq, Deserialize)]
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
+#[serde(tag = "tag", content = "contents")]
 pub enum Feature {
     ///  Syntactic feature
     F(Vec<FeatureValue>),
@@ -35,7 +37,8 @@ pub enum Feature {
     SF(i64, Vec<FeatureValue>),
 }
 
-#[derive(Debug, PartialEq, Deserialize)]
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
+#[serde(tag = "tag", content = "contents")]
 pub enum FeatureValue {
     V5k,
     V5s,
@@ -110,7 +113,8 @@ pub enum FeatureValue {
 }
 
 /// The name of the CCG rule to derive the node.
-#[derive(Debug, PartialEq, Deserialize)]
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
+#[serde(tag = "tag", content = "contents")]
 pub enum RuleSymbol {
     /// A lexical item
     Lex,

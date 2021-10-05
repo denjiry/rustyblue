@@ -4,11 +4,7 @@ use crate::{
 };
 
 // Simple parsing function to return just the best node for a given sentence
-pub fn simple_parse(
-    input: &str,
-    lexicon: &str,
-    beam_width: usize,
-) -> Result<Node, std::io::Error> {
+pub fn simple_parse(input: &str, lexicon: &str, beam_width: usize) -> Result<Node, std::io::Error> {
     let lexicon = Lexicon::new(lexicon);
     let chart_parser = ChartParser {
         beam_width,

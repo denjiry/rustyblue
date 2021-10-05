@@ -1,9 +1,9 @@
 pub mod dts;
 pub mod parser;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 /// A node in CCG derivation tree.
-#[derive(Debug, PartialEq, Deserialize)]
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub struct Node {
     rule_symbol: parser::ccg::RuleSymbol,
     phonetic_form: String,
