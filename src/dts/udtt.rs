@@ -63,7 +63,6 @@ pub enum Preterm {
 }
 
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "tag", content = "contents")]
 pub enum Selector {
     Fst,
     Snd,

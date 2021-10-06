@@ -15,11 +15,11 @@ pub enum Cat {
     /// S bar
     Sbar(Vec<Feature>),
     /// CON
-    Conj,
+    CONJ,
     /// A category for left parentheses
-    Lparen,
+    LPAREN,
     /// A category for right parentheses
-    Rparen,
+    RPAREN,
     /// X/Y
     SL(Box<Cat>, Box<Cat>),
     /// X\\Y
@@ -115,13 +115,13 @@ pub enum FeatureValue {
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub enum RuleSymbol {
     /// A lexical item
-    Lex,
+    LEX,
     /// An empty category
     EC,
     /// Forward function application rule.
-    Ffa,
+    FFA,
     /// Backward function application rule
-    Bfa,
+    BFA,
     /// Forward function composition rule 1
     FFC1,
     /// Backward function composition rule 1
@@ -141,13 +141,13 @@ pub enum RuleSymbol {
     /// Forward function crossed substitution rule
     FFSx,
     /// Coordination rule
-    Coord,
+    COORD,
     /// Parenthesis rule
-    Paren,
+    PAREN,
     /// Wrap rule
-    Wrap,
+    WRAP,
     /// Dynamic conjunction rule
     DC,
     /// Discourse Relation rule
-    Drel,
+    DREL,
 }

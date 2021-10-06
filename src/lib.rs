@@ -25,6 +25,6 @@ pub struct Node {
 
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
 struct Rational {
-    denominator: i32,
-    numerator: i32,
+    denominator: i64,
+    numerator: i64,
 }
