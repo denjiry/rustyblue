@@ -38,7 +38,6 @@ pub enum Feature {
 }
 
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "tag", content = "contents")]
 pub enum FeatureValue {
     V5k,
     V5s,
@@ -114,7 +113,6 @@ pub enum FeatureValue {
 
 /// The name of the CCG rule to derive the node.
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "tag", content = "contents")]
 pub enum RuleSymbol {
     /// A lexical item
     Lex,

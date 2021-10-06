@@ -11,6 +11,12 @@ pub struct Node {
     semantic: dts::udtt::Preterm,
     signature: Vec<dts::udtt::Signature>,
     daughters: Vec<Node>,
-    score: f64,
+    score: Rational,
     source: String,
+}
+
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
+struct Rational {
+    denominator: i32,
+    numerator: i32,
 }
