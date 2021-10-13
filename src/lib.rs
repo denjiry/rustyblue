@@ -8,7 +8,7 @@ pub struct Node {
     /// The name of the rule
     rs: parser::ccg::RuleSymbol,
     /// The phonetic form
-    pf: String,
+    pub pf: String,
     /// The syntactic category (in CCG)
     cat: parser::ccg::Cat,
     /// The semantic representation (in DTS)
