@@ -13,7 +13,7 @@ fn main() -> Result<()> {
     let mut lex = String::new();
     json.read_to_string(&mut lex)?;
     let nodes = parse_lexicon(&lex)?;
-    let map: PatriciaMap<_> = nodes.into_iter().collect();
+    let _map: PatriciaMap<_> = nodes.into_iter().map(|n| (n.pf.clone(), n)).collect();
     let parsed = chartparser::simple_parse(&input, &input, 10);
     dbg!(parsed.unwrap());
     Ok(())
