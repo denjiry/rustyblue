@@ -1,5 +1,5 @@
 use patricia_tree::PatriciaMap;
-use rustyblue::parser::japanese::lexicon;
+use rustyblue::parser::japanese::lexicon::{self, Lexicon};
 use std::{io::Result, iter::FromIterator};
 
 use rustyblue::parser::chartparser;
@@ -8,10 +8,10 @@ use rustyblue::Node;
 fn main() -> Result<()> {
     let input = String::from("ソクラテスは死ぬ。");
     let path = std::path::Path::new("./myLexicon.json");
-    let lex = std::fs::read_to_string(&path)?;
+    let lex = std::fs::read_to_string("./myLexicon.json")?;
     let nodes = parse_lexicon(&lex)?;
-    let _map: PatriciaMap<_> = nodes.into_iter().map(|n| (n.pf.clone(), n)).collect();
-    let parsed = chartparser::simple_parse(&input, &input, 10);
+    let lexicon = Lexicon::new(nodes);
+    let parsed = chartparser::simple_parse(&input, &lexicon, 10);
     dbg!(parsed.unwrap());
     Ok(())
 }

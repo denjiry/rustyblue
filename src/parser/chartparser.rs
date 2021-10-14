@@ -4,8 +4,11 @@ use crate::{
 };
 
 // Simple parsing function to return just the best node for a given sentence
-pub fn simple_parse(input: &str, lexicon: &str, beam_width: usize) -> Result<Node, std::io::Error> {
-    let lexicon = Lexicon::new(lexicon);
+pub fn simple_parse(
+    input: &str,
+    lexicon: &Lexicon,
+    beam_width: usize,
+) -> Result<Node, std::io::Error> {
     let chart_parser = ChartParser {
         beam_width,
         lexicon,
@@ -21,12 +24,12 @@ fn purify_text() {
 
 type Chart = std::collections::HashMap<(usize, usize), Vec<Node>>;
 
-struct ChartParser {
+struct ChartParser<'a> {
     beam_width: usize,
-    lexicon: Lexicon,
+    lexicon: &'a Lexicon,
 }
 
-impl ChartParser {
+impl<'a> ChartParser<'a> {
     fn parse(&self, sentence: &str) -> Chart {
         let sentence = sentence.chars().collect::<Vec<_>>();
         let mut chart = Chart::new();
