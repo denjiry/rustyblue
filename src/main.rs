@@ -7,12 +7,12 @@ use rustyblue::Node;
 
 fn main() -> Result<()> {
     let input = String::from("ソクラテスは死ぬ。");
-    let path = std::path::Path::new("./myLexicon.json");
     let lex = std::fs::read_to_string("./myLexicon.json")?;
     let nodes = parse_lexicon(&lex)?;
     let lexicon = Lexicon::new(nodes);
     let parsed = chartparser::simple_parse(&input, &lexicon, 10);
     dbg!(parsed.unwrap());
+    todo!("patricia map insert delete old entry");
     Ok(())
 }
 
