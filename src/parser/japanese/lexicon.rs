@@ -7,6 +7,7 @@ pub struct Lexicon {
 }
 
 impl Lexicon {
+    /// the time complexity of Lexicon::new() is O({nodes.len()} {max length of *pf*})
     pub fn new(nodes: Vec<Node>) -> Self {
         let map: PatriciaMap<_> = nodes.into_iter().map(|n| (n.pf.clone(), n)).collect();
         Self { map }
