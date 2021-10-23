@@ -39,9 +39,9 @@ impl<'a> ChartParser<'a> {
             let sub_sentence = &sentence[..i];
             let j = i + 1;
             for i in (0..i).rev() {
-                let mut new_nodes: Vec<Node> = Vec::new();
+                let mut new_nodes: Vec<&Node> = Vec::new();
                 let word_candidate: String = sub_sentence[i..].iter().collect();
-                let lexes = self.lexicon.search(word_candidate.as_str(), i);
+                let lexes = self.lexicon.search(&word_candidate);
                 if let Some(lexes) = lexes {
                     new_nodes.extend(lexes);
                 }
@@ -58,7 +58,7 @@ impl<'a> ChartParser<'a> {
     }
 }
 
-fn apply_binary_rules(i: usize, j: usize, chart: &Chart) -> Vec<Node> {
+fn apply_binary_rules(i: usize, j: usize, chart: &Chart) -> Vec<&Node> {
     use binary_rules::*;
     let mut nodes = Vec::new();
     for k in (i + 1)..j {
