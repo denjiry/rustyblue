@@ -1,6 +1,5 @@
-use patricia_tree::PatriciaMap;
-use rustyblue::parser::japanese::lexicon::{self, Lexicon};
-use std::{io::Result, iter::FromIterator};
+use rustyblue::parser::japanese::lexicon::Lexicon;
+use std::io::Result;
 
 use rustyblue::parser::chartparser;
 use rustyblue::Node;
