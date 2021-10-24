@@ -22,11 +22,11 @@ fn purify_text() {
     unimplemented!();
 }
 
-type Chart = std::collections::HashMap<(usize, usize), Vec<Node>>;
+type Chart<'a> = std::collections::HashMap<(usize, usize), Vec<&'a Node>>;
 
 struct ChartParser<'a> {
     beam_width: usize,
-    lexicon: &'a Lexicon,
+    lexicon: &'a Lexicon<'a>,
 }
 
 impl<'a> ChartParser<'a> {
@@ -58,9 +58,9 @@ impl<'a> ChartParser<'a> {
     }
 }
 
-fn apply_binary_rules(i: usize, j: usize, chart: &Chart) -> Vec<&Node> {
+fn apply_binary_rules<'a>(i: usize, j: usize, chart: &Chart) -> Vec<&'a Node> {
     use binary_rules::*;
-    let mut nodes = Vec::new();
+    let mut nodes: Vec<&Node> = Vec::new();
     for k in (i + 1)..j {
         let ik_nodes = match chart.get(&(i, k)) {
             Some(ik_nodes) => ik_nodes,
