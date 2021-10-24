@@ -1,3 +1,5 @@
+use std::io::{Error, ErrorKind};
+
 use crate::{
     parser::{ccg::binary_rules, japanese::lexicon::Lexicon},
     Node,
@@ -8,13 +10,15 @@ pub fn simple_parse<'a>(
     input: &str,
     lexicon: &'a Lexicon<'a>,
     beam_width: usize,
-) -> Result<Vec<&'a Node>, String> {
+) -> Result<Vec<&'a Node>, Error> {
     let chart_parser = ChartParser {
         beam_width,
         lexicon,
     };
     let chart = chart_parser.parse(input);
-    let result = chart.get(&(0, 0)).ok_or_else(|| "a".to_string())?;
+    let result = chart
+        .get(&(0, 0))
+        .ok_or_else(|| Error::from(ErrorKind::InvalidInput))?;
     Ok(result.clone())
 }
 

@@ -1,5 +1,5 @@
 use rustyblue::parser::japanese::lexicon::Lexicon;
-use std::io::Result;
+use std::io::{ErrorKind, Result};
 
 use rustyblue::parser::chartparser;
 use rustyblue::Node;
