@@ -4,17 +4,18 @@ use crate::{
 };
 
 // Simple parsing function to return just the best node for a given sentence
-pub fn simple_parse(
+pub fn simple_parse<'a>(
     input: &str,
-    lexicon: &Lexicon,
+    lexicon: &'a Lexicon<'a>,
     beam_width: usize,
-) -> Result<Node, std::io::Error> {
+) -> Result<Vec<&'a Node>, String> {
     let chart_parser = ChartParser {
         beam_width,
         lexicon,
     };
     let chart = chart_parser.parse(input);
-    unimplemented!();
+    let result = chart.get(&(0, 0)).ok_or_else(|| "a".to_string())?;
+    Ok(result.clone())
 }
 
 // removes occurrences of non-letters from an input text.
@@ -30,7 +31,7 @@ struct ChartParser<'a> {
 }
 
 impl<'a> ChartParser<'a> {
-    fn parse(&self, sentence: &str) -> Chart {
+    fn parse(&self, sentence: &str) -> Chart<'a> {
         let sentence = sentence.chars().collect::<Vec<_>>();
         let mut chart = Chart::new();
         let mut sep_stack = vec![0usize];
