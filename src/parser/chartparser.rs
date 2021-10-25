@@ -78,7 +78,14 @@ fn apply_binary_rules<'a>(i: usize, j: usize, chart: &Chart) -> Vec<&'a Node> {
 
         for lnode in ik_nodes {
             for rnode in kj_nodes {
-                nodes.push(forward_function_crossed_substitution_rule(lnode, rnode));
+                let mut new_nodes: Vec<&Node> = vec![
+                    forward_function_application_rule(lnode, rnode),
+                    backward_function_application_rule(lnode, rnode),
+                ]
+                .into_iter()
+                .flatten()
+                .collect();
+                nodes.append(&mut new_nodes);
             }
         }
     }
