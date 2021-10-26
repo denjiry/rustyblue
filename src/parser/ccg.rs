@@ -1,4 +1,4 @@
-pub mod binary_rules;
+pub mod rules;
 use crate::Node;
 use serde::{Deserialize, Serialize};
 

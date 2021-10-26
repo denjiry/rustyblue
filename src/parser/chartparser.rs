@@ -1,7 +1,7 @@
 use std::io::{Error, ErrorKind};
 
 use crate::{
-    parser::{ccg::binary_rules, japanese::lexicon::Lexicon},
+    parser::{ccg::rules, japanese::lexicon::Lexicon},
     Node,
 };
 
@@ -64,7 +64,7 @@ impl<'a> ChartParser<'a> {
 }
 
 fn apply_binary_rules<'a>(i: usize, j: usize, chart: &Chart) -> Vec<&'a Node> {
-    use binary_rules::*;
+    use rules::*;
     let mut nodes: Vec<&Node> = Vec::new();
     for k in (i + 1)..j {
         let ik_nodes = match chart.get(&(i, k)) {
