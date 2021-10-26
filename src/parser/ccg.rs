@@ -1,4 +1,5 @@
 pub mod rules;
+pub mod unify;
 use crate::Node;
 use serde::{Deserialize, Serialize};
 
