@@ -1,15 +1,21 @@
-use crate::parser::ccg::Cat;
+use crate::parser::ccg::{Cat, FeatureValue};
 
-/// | Data for category/feature unification
+/// Data for category/feature unification
 /// csub :: SubstData Cat
 /// fsub :: SubstData [FeatureValue]
 #[derive(Debug, PartialEq, Eq)]
-enum SubstData<T> {
+pub(crate) enum SubstData<T> {
     SubstLink(u32),
     SubstVal(T),
 }
-type Assignment<T> = Vec<(u32, SubstData<T>)>;
+pub(crate) type Assignment<T> = Vec<(u32, SubstData<T>)>;
 
-pub(crate) fn unify_category() -> Option<Cat> {
+pub(crate) fn unify_category(
+    csub: Assignment<Cat>,
+    fsub: Assignment<Vec<FeatureValue>>,
+    banned: Vec<u32>,
+    cat1: &Cat,
+    cat2: &Cat,
+) -> Option<(Cat, Assignment<Cat>, Assignment<Vec<FeatureValue>>)> {
     todo!();
 }

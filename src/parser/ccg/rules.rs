@@ -1,8 +1,8 @@
-use crate::Node;
 use crate::parser::ccg::unify;
+use crate::Node;
 
 pub fn forward_function_application_rule<'a>(lnode: &Node, rnode: &Node) -> Option<&'a Node> {
-    let new_category = unify::unify_category();
+    let (_, csub, fsub) = unify::unify_category(vec![], vec![], vec![], &lnode.cat, &rnode.cat)?;
     todo!();
 }
 
