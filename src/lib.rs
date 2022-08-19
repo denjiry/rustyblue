@@ -6,25 +6,25 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub struct Node {
     /// The name of the rule
-    rs: parser::ccg::RuleSymbol,
+    pub rs: parser::ccg::RuleSymbol,
     /// The phonetic form
     pub pf: String,
     /// The syntactic category (in CCG)
-    cat: parser::ccg::Cat,
+    pub cat: parser::ccg::Cat,
     /// The semantic representation (in DTS)
-    sem: dts::udtt::Preterm,
+    pub sem: dts::udtt::Preterm,
     /// Signature
-    sig: Vec<dts::udtt::Signature>,
+    pub sig: Vec<dts::udtt::Signature>,
     /// The daughter nodes
-    daughters: Vec<Node>,
+    pub daughters: Vec<Node>,
     /// The score (between 0.00 to 1.00, larger the better)
-    score: Rational,
+    pub score: Rational,
     /// The source of the lexical entry
-    source: String,
+    pub source: String,
 }
 
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
-struct Rational {
+pub struct Rational {
     denominator: i64,
     numerator: i64,
 }

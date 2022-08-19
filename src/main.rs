@@ -1,12 +1,9 @@
-use rustyblue::parser::japanese::lexicon::Lexicon;
-use std::env::set_var;
-use std::fmt::format;
-use std::io::{ErrorKind, Result};
-use std::io::{Read, Write};
-use std::process::{Command, Stdio};
+// use rustyblue::parser::japanese::lexicon::Lexicon;
+use std::io::Result;
 
-use rustyblue::parser::{chartparser, lightblue};
-use rustyblue::Node;
+// use rustyblue::parser::{chartparser};
+use rustyblue::parser::lightblue;
+// use rustyblue::Node;
 
 fn main() -> Result<()> {
     let input = String::from("黄色い大きな花は枯れる。");
@@ -16,6 +13,6 @@ fn main() -> Result<()> {
     // let lexicon = Lexicon::new(nodes);
     // let parsed = chartparser::simple_parse(&input, &lexicon, 10)?;
     let parsed = lightblue::lightblue_wrapper(&input)?;
-    dbg!(&parsed[0]);
+    dbg!(&parsed[0].sem);
     Ok(())
 }
